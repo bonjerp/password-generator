@@ -2,20 +2,16 @@ from PyQt6 import QtCore, QtWidgets
 
 from config import MIN_LENGTH, MAX_LENGTH, DEFAULT_LENGTH
 from widgets.widgets import BlueCheckBox, OptionCard
-from widgets.titlebar import TitleBar
 
 
 
 def createWidgets(app):
 
-    # --- title bar ---
-    app.titleBar = TitleBar(app)
 
-
-    app.iconLabel = QtWidgets.QLabel("bonjerp")
+    app.iconLabel = QtWidgets.QLabel("PASSGENERATOR")
     app.iconLabel.setObjectName("appIcon")
 
-    app.titleLabel = QtWidgets.QLabel("Password Generator")
+    app.titleLabel = QtWidgets.QLabel("")
     app.titleLabel.setObjectName("titleLabel")
 
     app.passwordOutput = QtWidgets.QLineEdit()
@@ -41,7 +37,7 @@ def createWidgets(app):
         segment.setFixedHeight(5)
         app.strengthSegments.append(segment)
 
-    app.strengthText = QtWidgets.QLabel("Strength:")
+    app.strengthText = QtWidgets.QLabel("Strength")
     app.strengthText.setObjectName("strengthText")
 
     app.strengthValue = QtWidgets.QLabel("Weak")
@@ -51,7 +47,7 @@ def createWidgets(app):
     app.strengthValue.setGraphicsEffect(app.strengthEffect)
     app.strengthEffect.setOpacity(1.0)
 
-    app.lengthTitle = QtWidgets.QLabel("Length:")
+    app.lengthTitle = QtWidgets.QLabel("Password length")
     app.lengthTitle.setObjectName("lengthTitle")
 
     app.lengthValue = QtWidgets.QLabel(str(DEFAULT_LENGTH))
@@ -108,7 +104,7 @@ def createWidgets(app):
     app.minSymbolsSpin.setObjectName("minimumSpin")
 
     # --- generate ---
-    app.generateButton = QtWidgets.QPushButton("↻  Generate Password")
+    app.generateButton = QtWidgets.QPushButton("Generate password")
     app.generateButton.setObjectName("generateButton")
     app.generateButton.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
 
@@ -123,14 +119,13 @@ def createLayouts(app):
     mainLayout = QtWidgets.QVBoxLayout(app)
     mainLayout.setContentsMargins(0, 0, 0, 0)
     mainLayout.setSpacing(0)
-    mainLayout.addWidget(app.titleBar)
 
     contentWidget = QtWidgets.QWidget()
     contentWidget.setObjectName("contentWidget")
 
     contentLayout = QtWidgets.QVBoxLayout(contentWidget)
-    contentLayout.setContentsMargins(10, 10, 10, 10)
-    contentLayout.setSpacing(10)
+    contentLayout.setContentsMargins(22, 20, 22, 20)
+    contentLayout.setSpacing(18)
 
 
     headerLayout = QtWidgets.QHBoxLayout()
@@ -184,8 +179,8 @@ def createLayouts(app):
     settingsCard.setObjectName("settingsCard")
 
     settingsLayout = QtWidgets.QVBoxLayout(settingsCard)
-    settingsLayout.setContentsMargins(14, 12, 14, 12)
-    settingsLayout.setSpacing(9)
+    settingsLayout.setContentsMargins(0, 0, 0, 0)
+    settingsLayout.setSpacing(11)
 
 
     lengthHeader = QtWidgets.QHBoxLayout()
@@ -236,5 +231,6 @@ def createLayouts(app):
     contentLayout.addWidget(settingsCard)
 
     # generate
+    contentLayout.addStretch()
     contentLayout.addWidget(app.generateButton)
     mainLayout.addWidget(contentWidget)

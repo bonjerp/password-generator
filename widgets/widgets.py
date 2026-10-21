@@ -8,17 +8,18 @@ class BlueCheckBox(QtWidgets.QCheckBox): # <- custom checkbox
         self.setFixedSize(24, 24)
 
     # --- draw checkbox ---
+    # draw the checkbox ourselves
     def paintEvent(self, event):
         painter = QtGui.QPainter(self)
         painter.setRenderHint(QtGui.QPainter.RenderHint.Antialiasing)
         rect = QtCore.QRectF(2, 2, 20, 20)
 
         if self.isChecked():
-            painter.setBrush(QtGui.QColor("#3B82F6"))
-            painter.setPen(QtGui.QPen(QtGui.QColor("#5794FF"), 1))
+            painter.setBrush(QtGui.QColor("#BDBDBD"))
+            painter.setPen(QtGui.QPen(QtGui.QColor("#D2D2D2"), 1))
             painter.drawRoundedRect(rect, 5, 5)
 
-            pen = QtGui.QPen(QtGui.QColor("#FFFFFF"), 2)
+            pen = QtGui.QPen(QtGui.QColor("#1A1A1A"), 2)
             pen.setCapStyle(QtCore.Qt.PenCapStyle.RoundCap)
             pen.setJoinStyle(QtCore.Qt.PenJoinStyle.RoundJoin)
             painter.setPen(pen)
@@ -30,8 +31,8 @@ class BlueCheckBox(QtWidgets.QCheckBox): # <- custom checkbox
             painter.drawPath(path)
 
         else:
-            painter.setBrush(QtGui.QColor("#151E29"))
-            painter.setPen(QtGui.QPen(QtGui.QColor("#445269"), 1))
+            painter.setBrush(QtGui.QColor("#242424"))
+            painter.setPen(QtGui.QPen(QtGui.QColor("#595959"), 1))
             painter.drawRoundedRect(rect, 5, 5)
 
 
@@ -65,6 +66,7 @@ class OptionCard(QtWidgets.QFrame): # <- option cards in the settings section
         layout.addLayout(textLayout)
         layout.addStretch()
 
+    # clicking anywhere on the card toggles the checkbox
     def mousePressEvent(self, event): # <- toggling check box when clicking the whole button
         if event.button() == QtCore.Qt.MouseButton.LeftButton:
             self.checkbox.setChecked(not self.checkbox.isChecked())

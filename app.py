@@ -1,6 +1,6 @@
-from PyQt6 import QtCore, QtWidgets
+from PyQt6 import QtWidgets
 
-from config import MAX_LENGTH
+from config import WINDOW_WIDTH, WINDOW_HEIGHT
 from generator import generatePassword
 from styles.style import APP_STYLE
 from ui import createWidgets, createLayouts
@@ -12,8 +12,7 @@ class Application(QtWidgets.QWidget):
         super().__init__()
 
         # --- Window ---
-        self.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
-        self.setMinimumSize(460, 560)
+        self.setFixedSize(WINDOW_WIDTH, WINDOW_HEIGHT)
 
         self.generatedPassword = ""
         self.currentStrengthScore = 0
@@ -26,6 +25,7 @@ class Application(QtWidgets.QWidget):
 
         self.generate() # gen when init
 
+    # hook up buttons and settings
     def createConnections(self):
         self.generateButton.clicked.connect(self.generate)
         self.copyButton.clicked.connect(self.copyPassword)
@@ -41,6 +41,7 @@ class Application(QtWidgets.QWidget):
         self.numberCheck.toggled.connect(self.updateMinimums)
         self.symbolCheck.toggled.connect(self.updateMinimums)
 
+    # grab the current settings and make a password
     def generate(self):
         self.generatedPassword = generatePassword(
             self.lengthSlider.value(),
@@ -56,6 +57,7 @@ class Application(QtWidgets.QWidget):
         animatePassword(self)
         self.updateStrength()
 
+    # send the password to the clipboard
     def copyPassword(self):
         password = self.passwordOutput.text()
 
@@ -99,6 +101,7 @@ class Application(QtWidgets.QWidget):
             self.symbolCheck.isChecked()
         ])
 
+        # basic strength score from length and character options
         score = 0
 
         if length >= 8:

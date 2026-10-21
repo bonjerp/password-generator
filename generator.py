@@ -4,6 +4,7 @@ import string
 from config import PUNCTUATION, CONFUSING_COMBO
 
 
+# avoid putting lookalike characters next to each other
 def hasConfusingCombo(password):
     for i in range(1, len(password)):
         if password[i - 1] in CONFUSING_COMBO and password[i] in CONFUSING_COMBO:
@@ -28,6 +29,7 @@ def generatePassword(length, useUpper=True,useLower=True,useNumbers=True, useSym
     if useSymbols:
         characters += symbols
         
+    # nothing to generate from
     if not characters:
         return "Pick at least one character type."
 
@@ -40,6 +42,7 @@ def generatePassword(length, useUpper=True,useLower=True,useNumbers=True, useSym
     if minSymbols > 0 and not useSymbols:
         return "Symbols are disabled."
     
+    # add the required numbers and symbols first
     password = []
 
     for i in range(minNumbers):
@@ -57,6 +60,7 @@ def generatePassword(length, useUpper=True,useLower=True,useNumbers=True, useSym
             random.choice(characters)
         )
 
+    # shuffle until the confusing combos are gone
     while True:
         random.shuffle(password)
         finalPassword = "".join(password)

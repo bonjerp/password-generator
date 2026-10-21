@@ -1,6 +1,7 @@
 from PyQt6 import QtCore
 
 
+# quick fade when a new password shows up
 def animatePassword(app):
     if hasattr(app, "passwordAnimation"):
         app.passwordAnimation.stop()
@@ -12,6 +13,7 @@ def animatePassword(app):
     app.passwordAnimation.setEasingCurve(QtCore.QEasingCurve.Type.OutCubic)
     app.passwordAnimation.start()
 
+# light up the strength bars one by one
 def animateStrength(app, oldScore, newScore):
     for timer in app.strengthTimers:
         timer.stop()
@@ -48,6 +50,7 @@ def animateStrength(app, oldScore, newScore):
     app.strengthTextAnimation.start()
 
 
+# refresh a bar after changing its state
 def setStrengthSegment(app, index, active):
     segment = app.strengthSegments[index]
     segment.setProperty("active", active)
@@ -91,6 +94,7 @@ def showToast(app, message): # <- copy notif/toast
     app.toastTimer.start(1200)
 
 
+# slide the copy notification back out
 def hideToast(app):
     x = (app.width() - app.toastLabel.width()) // 2
     startPosition = app.toastLabel.pos()
